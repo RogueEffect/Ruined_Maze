@@ -1,0 +1,97 @@
+
+body {
+    background-color: #222222;
+	margin: 0 0 500px 0;
+	text-align: center;
+	font-family: 'Myriad Pro', 'Tahoma', sans-serif;
+	color: #dddddd;
+}
+
+.title {
+	font-size: 56px;
+	line-height: 0px;
+	position: relative;
+	top: 56px;
+	text-shadow: 0px 6px #000;
+	font-weight: lighter;
+}
+
+.caption {
+	line-height: 0px;
+	font-weight: lighter;
+	font-size: 18px;
+	position: relative;
+	top: 10px;
+}
+
+div {
+	display: inline-block;
+}
+
+.panel {
+	background-color: #333;
+	width: 816px;
+	height: 440px;
+	margin-left: auto;
+}
+
+#panel1 {
+	margin-top: 50px;
+}
+
+#panel2 {
+	margin-top: 20px;
+}
+
+.subpanel {
+	background: #444;
+	width: 400px;
+	height: 440px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#depthPanel {
+	float: left;
+}
+
+#cavePanel {
+	float: left;
+	margin-left: 16px;
+}
+
+.mazeContainer {
+	background-color: red;
+	width: 400px;
+	height: 400px;
+}
+
+button {
+	margin-top: 20px;
+}
+
+.cell {
+	display: inline-block;
+	float: left;
+	width: 14px;
+	height: 14px;
+	border: 1px solid #444444;
+}
+
+.wall {
+	background-color: #dddddd;
+}
+
+.floor {
+	background-color: #222222;
+}
+
+.node {
+	background-color: #66ffff;
+}
+
+#canvas {
+	background-color: red;
+	display: inline-block;
+	margin: 50px auto;
+}
