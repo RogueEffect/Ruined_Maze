@@ -7,15 +7,15 @@ var depthContainer = document.getElementById('depthContainer');
 var caveContainer = document.getElementById('caveContainer');
 
 for(y = 0; y < HEIGHT; y++) {
-	for(x = 0; x < WIDTH; x++) {
-		combinedContainer.innerHTML += "<div class=\"cell\"></div>";
-		depthContainer.innerHTML += "<div class=\"cell\"></div>";
-		caveContainer.innerHTML += "<div class=\"cell\"></div>";
-	}
+    for(x = 0; x < WIDTH; x++) {
+        combinedContainer.innerHTML += '<div class="cell"></div>';
+        depthContainer.innerHTML += '<div class="cell"></div>';
+        caveContainer.innerHTML += '<div class="cell"></div>';
+    }
 }
 
 function nextInt(max) {
-	return Math.floor(Math.random() * max);
+    return Math.floor(Math.random() * max);
 }
 
 var WALL = "wall", FLOOR = "floor", NODE = "node";
@@ -28,10 +28,10 @@ function fill(map, tile) {
 }
 
 function fillRandom(map) {
-	for(i = 0; i < WIDTH * HEIGHT; i++) {
-		if(nextInt(20) > 11) map[i] = WALL;
-		else map[i] = FLOOR;
-	}
+    for(i = 0; i < WIDTH * HEIGHT; i++) {
+        if(nextInt(20) > 11) map[i] = WALL;
+        else map[i] = FLOOR;
+    }
 }
 
 function setTile(map, x, y, tile) {
@@ -61,7 +61,7 @@ function setNodes() {
 
 function hasNeighbor(x, y) {
     return (getTile(depthmap, x, y - 2) == NODE || getTile(depthmap, x, y + 2) == NODE ||
-		getTile(depthmap, x - 2, y) == NODE || getTile(depthmap, x + 2, y) == NODE);
+        getTile(depthmap, x - 2, y) == NODE || getTile(depthmap, x + 2, y) == NODE);
 }
 
 function getRandomNeighbor(x, y) {
@@ -86,7 +86,7 @@ function applyMap(container, map) {
 function generateDepthMaze() {
     fill(depthmap, WALL);
     var nodes = setNodes();
-	var x = 3, y = 3;
+    var x = 3, y = 3;
     var lastCell = [[x, y]];
     while(nodes > 0) {
         var next = getRandomNeighbor(x, y);
@@ -108,54 +108,54 @@ function generateDepthMaze() {
 }
 
 function getNeighbors(x, y) {
-	var neighbors = 0;
-	for(y2 = -1; y2 < 2; y2++) {
-		for(x2 = -1; x2 < 2; x2++) {
-			if(getTile(cavemap, x + x2, y + y2) == WALL) neighbors++;
-			if(getTile(cavemap, x + x2, y + y2) == null) neighbors++;
-		}
-	}
-	return neighbors;
+    var neighbors = 0;
+    for(y2 = -1; y2 < 2; y2++) {
+        for(x2 = -1; x2 < 2; x2++) {
+            if(getTile(cavemap, x + x2, y + y2) == WALL) neighbors++;
+            if(getTile(cavemap, x + x2, y + y2) == null) neighbors++;
+        }
+    }
+    return neighbors;
 }
 
 function doCaveGenStep() {
-	var workmap = cavemap;
-	
-	for(y = 0; y < HEIGHT; y++) {
-		for(x = 0; x < WIDTH; x++) {
-			var neighbors = getNeighbors(x, y);
-			if(getTile(workmap, x, y) == WALL) {
-				if(neighbors < 3) setTile(workmap, x, y, FLOOR);
-			}
-			else {
-				if(neighbors > 4) setTile(workmap, x, y, WALL);
-			}
-		}
-	}
-	
-	cavemap = workmap;
+    var workmap = cavemap;
+    
+    for(y = 0; y < HEIGHT; y++) {
+        for(x = 0; x < WIDTH; x++) {
+            var neighbors = getNeighbors(x, y);
+            if(getTile(workmap, x, y) == WALL) {
+                if(neighbors < 3) setTile(workmap, x, y, FLOOR);
+            }
+            else {
+                if(neighbors > 4) setTile(workmap, x, y, WALL);
+            }
+        }
+    }
+    
+    cavemap = workmap;
 }
 
 function generateCaveMaze() {
-	fillRandom(cavemap);
-	
-	for(i = 0; i < 10; i++) doCaveGenStep();
-	
-	applyMap(caveContainer, cavemap);
+    fillRandom(cavemap);
+    
+    for(i = 0; i < 10; i++) doCaveGenStep();
+    
+    applyMap(caveContainer, cavemap);
 }
 
 function generate() {
     generateDepthMaze();
-	generateCaveMaze();
-	
+    generateCaveMaze();
+    
     for(y = 0; y < HEIGHT; y++) {
         for(x = 0; x < WIDTH; x++) {
             setTile(combinedmap, x, y, getTile(depthmap, x, y));
-			if(x != 0 && y != 0 && x != WIDTH - 1 && y != HEIGHT - 1)
-				if(getTile(cavemap, x, y) == FLOOR) setTile(combinedmap, x, y, FLOOR);
+            if(x != 0 && y != 0 && x != WIDTH - 1 && y != HEIGHT - 1)
+                if(getTile(cavemap, x, y) == FLOOR) setTile(combinedmap, x, y, FLOOR);
         }
     }
-	applyMap(combinedContainer, combinedmap);
+    applyMap(combinedContainer, combinedmap);
 }
 
 generate();
